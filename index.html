@@ -1,0 +1,591 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to Our Restaurant - Experience exquisite dining and culinary delights.">
+    <meta name="keywords" content="restaurant, dining, food, reservations, menu, cuisine, chef, events, reviews">
+    <title>Our Restaurant</title>
+    <style>
+        /* Reset and Basic Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+        a {
+            text-decoration: none;
+            color: #800020;
+        }
+        /* Color Scheme */
+        :root {
+            --primary-color: #800020; /* Burgundy */
+            --secondary-color: #FFFDD0; /* Cream */
+            --accent-color: #FF7F50; /* Coral */
+            --text-color: #36454F; /* Charcoal */
+        }
+        /* Utility Classes */
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .py-1 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-2 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-3 { padding-top: 3rem; padding-bottom: 3rem; }
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            padding: 1rem 0;
+        }
+        nav ul li a {
+            color: #fff;
+            padding: 0.75rem 1rem;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+        /* Hero Section */
+        #hero {
+            background: url('https://picsum.photos/seed/restaurant1/1920/1080') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        #hero * {
+            position: relative;
+            z-index: 1;
+        }
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        #hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        .btn-reserve {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-reserve:hover {
+            background-color: darken(var(--accent-color), 10%);
+            transform: translateY(-2px);
+        }
+        /* Reservation Section */
+        #reservation {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        #reservation-form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 800px;
+            margin: auto;
+        }
+        .form-group {
+            margin: 1rem;
+            flex: 1 1 200px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        /* Menu Section */
+        #menu {
+            background-color: #fff;
+            padding: 2rem 0;
+        }
+        .menu-category {
+            margin-bottom: 2rem;
+        }
+        .menu-category h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            justify-items: center;
+        }
+        .menu-item {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .menu-item-content {
+            padding: 1rem;
+            text-align: center;
+        }
+        .menu-item h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .menu-item p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        .menu-item .price {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .dietary-labels {
+            margin-top: 0.5rem;
+        }
+        .dietary-labels span {
+            display: inline-block;
+            margin: 0 0.2rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #fff;
+        }
+        .vegan { background-color: green; }
+        .gluten-free { background-color: orange; }
+        .spicy { background-color: red; }
+        /* Reviews Section */
+        #reviews {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        #reviews h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .review-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .review {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1 1 300px;
+            text-align: left;
+        }
+        .review p {
+            margin-bottom: 0.5rem;
+        }
+        .review-author {
+            font-style: italic;
+            color: #666;
+        }
+        .stars {
+            color: gold;
+        }
+        /* Blog Section */
+        #blog {
+            background-color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        #blog h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            justify-items: center;
+        }
+        .blog-post {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            width: 100%;
+            max-width: 350px;
+        }
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+        .blog-post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .blog-post-content {
+            padding: 1rem;
+            text-align: left;
+        }
+        .blog-post h3 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .blog-post p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        /* Additional Features - Google Maps, Contact Form, Social Media */
+        #contact {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        #contact h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        #contact-form {
+            max-width: 600px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            text-align: left;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            height: 150px;
+        }
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: flex-start;
+        }
+        .btn-submit:hover {
+            background-color: darken(var(--accent-color), 10%);
+        }
+        .social-links {
+            margin-top: 2rem;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+            #hero p {
+                font-size: 1.2rem;
+            }
+            .btn-reserve {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            .form-group {
+                flex: 1 1 100%;
+            }
+            .menu-items {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            .blog-posts {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h1>Welcome to Our Restaurant</h1>
+        <p>Experience exquisite dining and culinary delights.</p>
+        <button class="btn-reserve" onclick="scrollToSection('reservation')">Reserve a Table</button>
+    </section>
+
+    <section id="reservation" class="py-3">
+        <div class="container">
+            <h2>Make a Reservation</h2>
+            <form id="reservation-form">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <input type="number" id="guests" name="guests" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="seating">Seating Preference</label>
+                    <select id="seating" name="seating">
+                        <option value="indoor">Indoor</option>
+                        <option value="outdoor">Outdoor</option>
+                        <option value="private">Private Dining</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-reserve">Confirm Reservation</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="menu" class="py-3">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-category">
+                <h2>Appetizers</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://picsum.photos/seed/appetizer1/300/200" alt="Appetizer 1">
+                        <div class="menu-item-content">
+                            <h3>Appetizer 1</h3>
+                            <p>Delicious appetizer description.</p>
+                            <p class="price">$10.99</p>
+                            <div class="dietary-labels">
+                                <span class="vegan">Vegan</span>
+                                <span class="gluten-free">Gluten-Free</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat for other appetizers -->
+                </div>
+            </div>
+            <div class="menu-category">
+                <h2>Main Course</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://picsum.photos/seed/maincourse1/300/200" alt="Main Course 1">
+                        <div class="menu-item-content">
+                            <h3>Main Course 1</h3>
+                            <p>Delicious main course description.</p>
+                            <p class="price">$25.99</p>
+                            <div class="dietary-labels">
+                                <span class="spicy">Spicy</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat for other main courses -->
+                </div>
+            </div>
+            <!-- Add Dessert and Beverage categories similarly -->
+        </div>
+    </section>
+
+    <section id="reviews" class="py-3">
+        <div class="container">
+            <h2>Customer Reviews</h2>
+            <div class="review-container">
+                <div class="review">
+                    <p>"Amazing food and service! Highly recommend."</p>
+                    <p class="review-author">- John Doe</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+                <!-- Repeat for other reviews -->
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="py-3">
+        <div class="container">
+            <h2>Latest News</h2>
+            <div class="blog-posts">
+                <div class="blog-post">
+                    <img src="https://picsum.photos/seed/blog1/350/200" alt="Blog Post 1">
+                    <div class="blog-post-content">
+                        <h3>New Chef Joins Our Team</h3>
+                        <p>We are excited to welcome Chef Ramsey to our culinary team!</p>
+                    </div>
+                </div>
+                <!-- Repeat for other blog posts -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-3">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div id="map">
+                <!-- Google Maps Embed -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12760.83466546872!2d-122.4194156!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1684028777124!5m2!1sen!2sus" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Send Message</button>
+            </form>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Our Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scrolling Function
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Reservation Form Submission
+        document.getElementById('reservation-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Reservation submitted! We will contact you shortly.');
+            // Here you would typically send the form data to a server
+        });
+
+        // Contact Form Submission
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Message sent! We will get back to you soon.');
+            // Here you would typically send the form data to a server
+        });
+    </script>
+    <!-- Font Awesome for Social Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>
